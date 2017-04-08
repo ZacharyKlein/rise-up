@@ -1,0 +1,81 @@
+body {
+  background-color: #f2f2f2;
+}
+
+header {
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url('../img/header.jpg');
+  text-align: center;
+  color: white;
+}
+
+header h1 {
+  color: white;
+}
+
+header h4 {
+  text-align: left;
+  color: #3E6287;
+}
+
+header p {
+  text-align: left!important;
+}
+
+header {
+  color: #222!important;
+}
+
+.glory {
+  font-family: 'Great Vibes', cursive;
+  font-size: 100px;
+  font-weight: bold;
+  color:#3E6287
+}
+
+
+.cross-tagline {
+  position: relative;
+  bottom: 70px;
+  left: 160px;
+  font-weight:normal;
+  line-height: 90px;
+  color: #3e6287;
+  font-size: 32px
+}
+
+.cross {
+  font-family: 'Palanquin Dark', sans-serif;
+  font-size: 100px;
+  position: relative;
+  top: 30px;
+}
+
+.marquee {
+  background: rgba(255, 255, 255, 0.5);;
+}
+
+h2 {
+  text-align: center;
+  color: #3E6287
+}
+
+.speakers h4 {
+  display: inline;
+  color: #3E6287;
+  padding-right:10px;
+  bottom:8px;
+}
+
+.speakers img {
+  max-width: 105px;
+  float:left;
+  margin-right: 15px;
+}
