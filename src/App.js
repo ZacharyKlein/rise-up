@@ -8,7 +8,44 @@ import keyser from './img/keyser.png';
 import './css/App.css';
 
 class App extends Component {
+
+    constructor(){
+        super();
+        this.state = {
+            schedule:[
+              {time:"7:15", day1:"", day2:"Prayer", day3:"Prayer", day4:"Prayer"},
+              {time:"8:15", day1:"", day2:"Breakfast", day3:"Breakfast", day4:"Breakfast"},
+              {time:"9:30", day1:"", day2:"<strong>General Session</strong><br/>Keith Keyser", 
+                  day3:"<strong>General Session</strong><br/>Nate Bramsen", 
+                  day4:"<strong>General Session</strong><br/>Alan Gamble"},
+              {time:"10:45", day1:"", day2:"Break", day3:"Break", day4:""},
+              {time:"11:00", day1:"", day2:"Seminar 1", day3:"Seminar 3", day4:"Conference Ends"},
+              {time:"12:20", day1:"", day2:"Lunch", day3:"Lunch", day4:""},
+              {time:"2:00", day1:"Registration<br/>Begins", day2:"<strong>General Session</strong><br/>Nate Bramsen", 
+                  day3:"Seminar 4", day4:""},
+              {time:"3:15", day1:"", day2:"Break", day3:"Free Time", day4:""},
+              {time:"3:30", day1:"", day2:"Seminar 2", day3:"Free Time", day4:""},
+              {time:"4:30", day1:"", day2:"Free Time", day3:"Free Time", day4:""},
+              {time:"5:30", day1:"(No Dinner)", day2:"Dinner", day3:"Dinner", day4:""},
+              {time:"7:30", day1:"<strong>General Session</strong><br/>Alan Gamble", 
+                  day2:"<strong>General Session</strong><br/>Alan Gamble", 
+                  day3:"<strong>General Session</strong><br/>Keith Keyser", day4:""},
+              {time:"8:45", day1:"<strong>Young Adult Session</strong><br/>Nate Bramsen", 
+                  day2:"<strong>Young Adult Session</strong><br/>Scott DeGroff", 
+                  day3:"<strong>Young Adult Session</strong><br/>Mike Attwood", day4:""}
+            ]
+        };
+    }
     render() {
+        function renderScheduleRow(scheduleRow){
+            return <tr>
+                        <td dangerouslySetInnerHTML={scheduleRow.time} />
+                        <td dangerouslySetInnerHTML={scheduleRow.day1} />
+                        <td dangerouslySetInnerHTML={scheduleRow.day2} />
+                        <td dangerouslySetInnerHTML={scheduleRow.day3} />
+                        <td dangerouslySetInnerHTML={scheduleRow.day4} />
+                    </tr>;
+        };
         return (
             <Grid>
                 <header>
@@ -134,7 +171,7 @@ class App extends Component {
                         </Col>
                         <Col md={4}><p>
                             <img src={bramsen} alt="Nate Bramsen" />
-                            <h4>Nate Bramesen</h4>
+                            <h4>Nate Bramsen</h4>
                                 serves in Niger, Africa. His passion is to know Christ, and to make Him known among
                                 unreached people’s (through ministry to kids), and to see today’s youth become
                                 unconditional followers of Jesus Christ. His time is invested in international
@@ -260,104 +297,7 @@ class App extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
-                        <tr>
-                            <td>ABC</td>
-                            <td>DEF</td>
-                            <td>GHI</td>
-                            <td>JKL</td>
-                            <td>MNO</td>
-                        </tr>
+                        {this.state.schedule.map(renderScheduleRow)}
                         </tbody>
                     </Table>
                 </Row>
