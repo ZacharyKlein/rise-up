@@ -105,10 +105,10 @@ class App extends Component {
 
                         <Row>
                             <Col md={6}>
-                                <img src={hotel1} style={{maxWidth: '100%'}}/>
+                                <img src={hotel1} alt="Embassy Suites" style={{maxWidth: '100%'}}/>
                             </Col>
                             <Col md={6}>
-                                <img src={hotel2} style={{maxWidth: '90%'}}/>
+                                <img src={hotel2} alt="Embassy Suites" style={{maxWidth: '90%'}}/>
                             </Col>
 
                         </Row>
