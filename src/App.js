@@ -38,12 +38,12 @@ class App extends Component {
     }
     render() {
         function renderScheduleRow(scheduleRow){
-            return <tr>
-                        <td dangerouslySetInnerHTML={scheduleRow.time} />
-                        <td dangerouslySetInnerHTML={scheduleRow.day1} />
-                        <td dangerouslySetInnerHTML={scheduleRow.day2} />
-                        <td dangerouslySetInnerHTML={scheduleRow.day3} />
-                        <td dangerouslySetInnerHTML={scheduleRow.day4} />
+            return <tr key={scheduleRow.time}>
+                        <td dangerouslySetInnerHTML={{__html: scheduleRow.time}} />
+                        <td dangerouslySetInnerHTML={{__html: scheduleRow.day1}} />
+                        <td dangerouslySetInnerHTML={{__html: scheduleRow.day2}} />
+                        <td dangerouslySetInnerHTML={{__html: scheduleRow.day3}} />
+                        <td dangerouslySetInnerHTML={{__html: scheduleRow.day4}} />
                     </tr>;
         };
         return (
@@ -266,7 +266,7 @@ class App extends Component {
                                     <td>Rex Trogdon</td>
                                 </tr>
                                 <tr>
-                                    <td colspan={2}><strong>Women Only:</strong></td>
+                                    <td colSpan={2}><strong>Women Only:</strong></td>
 
                                 </tr>
                                 <tr>
@@ -301,8 +301,10 @@ class App extends Component {
                         </tbody>
                     </Table>
                 </Row>
-
-
+                <div style="clear: both">
+                    <h3 style="float: left"><a href="">Download full conference brochure</a></h3>  
+                    <h3 style="float: right">Online registration coming soon</h3>
+                </div>
             </Grid>
         );
     }
