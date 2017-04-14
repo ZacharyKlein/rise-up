@@ -5,6 +5,7 @@ import hotel2 from './img/hotel-2.png';
 import bramsen from './img/bramsen.png';
 import gamble from './img/gamble.png';
 import keyser from './img/keyser.png';
+import brochure from './resources/BBC2017.pdf';
 import './css/App.css';
 
 class App extends Component {
@@ -301,10 +302,14 @@ class App extends Component {
                         </tbody>
                     </Table>
                 </Row>
-                <div style="clear: both">
-                    <h3 style="float: left"><a href="">Download full conference brochure</a></h3>  
-                    <h3 style="float: right">Online registration coming soon</h3>
-                </div>
+                <Row>
+                    <Col md={6}>
+                         <h3><a href={brochure} download="BBC2017">Download full conference brochure</a></h3> 
+                    </Col>
+                    <Col md={6}>
+                        <h3>Online registration coming soon!</h3>
+                    </Col>
+                </Row>
             </Grid>
         );
     }
