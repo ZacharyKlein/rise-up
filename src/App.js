@@ -174,7 +174,7 @@ class App extends Component {
                             <img src={bramsen} alt="Nate Bramsen" />
                             <h4>Nate Bramsen</h4>
                                 serves in Niger, Africa. His passion is to know Christ, and to make Him known among
-                                unreached people’s (through ministry to kids), and to see today’s youth become
+                                unreached people groups (through ministry to kids), and to see today’s youth become
                                 unconditional followers of Jesus Christ. His time is invested in international
                                 ministry (church planting/youth ministry), along with itinerant speaking, weekly podcasts
                                 (<a href="http://www.theunalteredword.org">www.theunalteredword.org</a>), and with ministries through ROCK International
@@ -263,7 +263,7 @@ class App extends Component {
                                     <td>Rex Trogdon</td>
                                 </tr>
                                 <tr>
-                                    <td>The Hymnology of the Cross</td>
+                                    <td>Hymnology of the Cross</td>
                                     <td>Rex Trogdon</td>
                                 </tr>
                                 <tr>
