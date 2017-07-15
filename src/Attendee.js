@@ -6,11 +6,12 @@ class Attendee extends Component {
 
     render() {
         // const {attendee} = this.props;
+        const {attendee, updateHandler} = this.props;
 
         return <Well>
             <Row>
                 <Col md={2}>
-                    <h4>Attendee {this.props.attendee.id}</h4>
+                    <h4>Attendee {attendee.id}</h4>
                 </Col>
             </Row>
             <hr/>
@@ -19,14 +20,14 @@ class Attendee extends Component {
                     <ControlLabel>First Name</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl type="text" placeholder="First Name"/>
+                    <FormControl type="text" placeholder="First Name" name="firstName" onChange={updateHandler}/>
                 </Col>
 
                 <Col md={2}>
                     <ControlLabel>Last Name</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl type="text" placeholder="Last Name"/>
+                    <FormControl type="text"  name="lastName" placeholder="Last Name" onChange={updateHandler}/>
                 </Col>
             </FormGroup>
 
@@ -35,14 +36,14 @@ class Attendee extends Component {
                     <ControlLabel>Age (for children)</ControlLabel>
                 </Col>
                 <Col md={3}>
-                    <FormControl type="text" placeholder="Age"/>
+                    <FormControl type="text" name="age" placeholder="Age" onChange={updateHandler}/>
                 </Col>
 
                 <Col md={2}>
                     <ControlLabel>Gender</ControlLabel>
                 </Col>
                 <Col md={2}>
-                    <FormControl componentClass="select">
+                    <FormControl componentClass="select" name="gender" onChange={updateHandler}>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </FormControl>
@@ -54,14 +55,14 @@ class Attendee extends Component {
                     <ControlLabel>Phone</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl type='text' placeholder="Phone"/>
+                    <FormControl type='text' placeholder="Phone" name="phone" onChange={updateHandler}/>
                 </Col>
 
                 <Col md={2}>
                     <ControlLabel>Email</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl type='text' placeholder="Email address"/>
+                    <FormControl type='text' placeholder="Email address" name="email" onChange={updateHandler}/>
                 </Col>
             </FormGroup>
 
@@ -72,7 +73,7 @@ class Attendee extends Component {
                     </ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl componentClass="select">
+                    <FormControl componentClass="select" name="ticket" onChange={updateHandler}>
                         <option value="option">Option</option>
                     </FormControl>
                 </Col>
@@ -81,10 +82,10 @@ class Attendee extends Component {
                     <ControlLabel>Volunteer</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <Checkbox inline>
+                    <Checkbox inline name="bookRoom" onChange={updateHandler}>
                         Bookroom
                     </Checkbox>
-                    <Checkbox inline>
+                    <Checkbox inline name="volunteer" onChange={updateHandler}>
                         Where needed
                     </Checkbox>
                 </Col>
@@ -96,7 +97,7 @@ class Attendee extends Component {
                     <ControlLabel>Roommate Request</ControlLabel>
                 </Col>
                 <Col md={9}>
-                    <FormControl type="text" placeholder="Enter request details here..."/>
+                    <FormControl type="text" placeholder="Enter request details here..." name="roomMateRequest" onChange={updateHandler}/>
                 </Col>
             </FormGroup>
 
@@ -105,7 +106,7 @@ class Attendee extends Component {
                     <ControlLabel>Special Needs</ControlLabel>
                 </Col>
                 <Col md={9}>
-                    <FormControl type="text" placeholder="Enter any special need details here..."/>
+                    <FormControl type="text" placeholder="Enter any special need details here..." name="specialNeeds" onChange={updateHandler}/>
                 </Col>
             </FormGroup>
 
@@ -114,7 +115,7 @@ class Attendee extends Component {
                     <ControlLabel>Seminar 1</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl componentClass="select">
+                    <FormControl componentClass="select" name="seminar1" onChange={updateHandler}>
                         <option value="option">Option</option>
                     </FormControl>
                 </Col>
@@ -123,7 +124,7 @@ class Attendee extends Component {
                     <ControlLabel>Seminar 2</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl componentClass="select">
+                    <FormControl componentClass="select" name="seminar2" onChange={updateHandler}>
                         <option value="option">Option</option>
                     </FormControl>
                 </Col>
@@ -134,7 +135,7 @@ class Attendee extends Component {
                     <ControlLabel>Seminar 3</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl componentClass="select">
+                    <FormControl componentClass="select" name="seminar3" onChange={updateHandler}>
                         <option value="option">Option</option>
                     </FormControl>
                 </Col>
@@ -143,7 +144,7 @@ class Attendee extends Component {
                     <ControlLabel>Seminar 4</ControlLabel>
                 </Col>
                 <Col md={4}>
-                    <FormControl componentClass="select">
+                    <FormControl componentClass="select" name="seminar4" onChange={updateHandler}>>
                         <option value="option">Option</option>
                     </FormControl>
                 </Col>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, Table} from 'react-bootstrap';
+import {Grid, Row, Col, Table, Button} from 'react-bootstrap';
 import hotel1 from './img/hotel-1.png';
 import hotel2 from './img/hotel-2.png';
 import bramsen from './img/bramsen.png';
@@ -60,6 +60,9 @@ class Home extends Component {
                             <Col md={6}>
                                 <h1 style={{fontFamily: "'Palanquin Dark', sans-serif", color: '#3E6287', fontWeight: 'normal'}}>THE <span className="glory">Glory</span></h1>
                                 <span className="cross-tagline">OF THE <span className="cross">CROSS</span></span>
+                            </Col>
+                            <Col md={6}>
+                                <Button bsStyle='success' bsSize='large' style={{marginTop: 120}} onClick={this.props.back}>Register Now</Button>
                             </Col>
                         </Row>
 

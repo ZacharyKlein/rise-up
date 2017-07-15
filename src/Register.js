@@ -8,12 +8,21 @@ class Register extends Component {
     constructor() {
         super();
         this.state = {
-            attendees: [{id: 1}, {id: 2}]
+            firstName: '',
+            lastName: '',
+            street: '',
+            street2: '',
+            city: '',
+            state: '',
+            postal: '',
+            phone: '',
+            email: '',
+            attendees: []
         }
     }
 
     renderAttendeeRow = attendee => {
-        return <Attendee key={attendee.id} attendee={attendee} remove={() => { this.removeAttendeeRow(attendee.id) }}/>;
+        return attendee ? <Attendee key={attendee.id} attendee={attendee} updateHandler={(e) => this.handleAttendeeInputChange(e, attendee.id)} remove={() => { this.removeAttendeeRow(attendee.id) }}/> : null;
     };
 
     removeAttendeeRow = id => {
@@ -33,11 +42,40 @@ class Register extends Component {
         this.setState(state);
     };
 
+    back = () => {
+        this.props.back();
+    };
+
+    handleInputChange = event => {
+        const target = event.target;
+
+        this.setState(state => {
+            const registration = state;
+            registration[target.name] = target.type === 'checkbox' ? target.checked : target.value;
+            return registration;
+        });
+    };
+
+    handleAttendeeInputChange = (event, id)  => {
+        console.log(`handleAttendeeInputChange: ${id}`);
+        const target = event.target;
+
+        let attendees = this.state.attendees.map(a => {
+            if(a && a.id === id) {
+                a[target.name] = target.type === 'checkbox' ? target.checked : target.value;
+            }
+
+            return a;
+        });
+        this.setState({attendees})
+    };
+
     render() {
         return (
             <Grid>
                 <Row>
-                    <h3 style={{textAlign: 'center'}}>Registration</h3>
+                    <Button onClick={this.back}>Back</Button>
+                    <h1 style={{textAlign: 'center'}}>Registration</h1>
                 </Row>
                 <hr />
                 <Form horizontal>
@@ -47,13 +85,13 @@ class Register extends Component {
                             <ControlLabel>First Name</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl type='text' placeholder="First Name"/>
+                            <FormControl name="firstName" type='text' placeholder="First Name" value={this.state.firstName} onChange={this.handleInputChange}/>
                         </Col>
                         <Col md={2}>
                             <ControlLabel>Last Name</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl type='text' placeholder="Last Name"/>
+                            <FormControl name="lastName" type='text' placeholder="Last Name" value={this.state.lastName} onChange={this.handleInputChange}/>
                         </Col>
 
                     </FormGroup>
@@ -64,9 +102,9 @@ class Register extends Component {
                             </ControlLabel>
                         </Col>
                         <Col md={10}>
-                            <FormControl type='text' placeholder="Street"/>
+                            <FormControl name="street" type='text' placeholder="Street" value={this.state.street} onChange={this.handleInputChange}/>
                             <br/>
-                            <FormControl type='text' placeholder="Street 2"/>
+                            <FormControl name="street2" type='text' placeholder="Street 2" value={this.state.street2} onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
                     <FormGroup>
@@ -74,20 +112,20 @@ class Register extends Component {
                             <ControlLabel>City</ControlLabel>
                         </Col>
                         <Col md={3}>
-                            <FormControl type='text' placeholder="City"/>
+                            <FormControl name="city" type='text' placeholder="City" value={this.state.city} onChange={this.handleInputChange}/>
                         </Col>
 
                         <Col md={1}>
                             <ControlLabel>State</ControlLabel>
                         </Col>
                         <Col md={2}>
-                            <FormControl type='text' placeholder="State"/>
+                            <FormControl name="state" type='text' placeholder="State" value={this.state.state} onChange={this.handleInputChange}/>
                         </Col>
                         <Col md={1}>
                             <ControlLabel>Postal</ControlLabel>
                         </Col>
                         <Col md={2}>
-                            <FormControl type='text' placeholder="Zip code"/>
+                            <FormControl name="postal" type='text' placeholder="Zip code" value={this.state.postal} onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
 
@@ -96,14 +134,14 @@ class Register extends Component {
                             <ControlLabel>Phone</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl type='text' placeholder="Phone"/>
+                            <FormControl name="phone" type='text' placeholder="Phone" value={this.state.phone} onChange={this.handleInputChange}/>
                         </Col>
 
                         <Col md={2}>
                             <ControlLabel>Email</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl type='text' placeholder="Email address"/>
+                            <FormControl name="email" type='text' placeholder="Email address" value={this.state.email} onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
                     <hr />

@@ -9,19 +9,24 @@ class App extends Component {
         super();
 
         this.state = {
-            route: 'register'
+            route: 'home'
         }
     }
 
-
     register = () => {
+        console.log('register...');
+        this.setState({route: 'register'});
+    };
+    home = () => {
 
+        console.log('home...');
+        this.setState({route: 'home'});
     };
 
     render() {
         const {route} = this.state;
 
-        return (route === 'home') ? <Home /> : <Register />;
+        return (route === 'home') ? <Home back={this.register} /> : <Register back={this.home} />;
     }
 }
 
