@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Attendee from './Attendee';
-import {Grid, Row, Well, Col, Form, FormGroup, FormControl, ControlLabel, Button, ButtonGroup} from 'react-bootstrap';
+import {Alert, Grid, Row, Well, Col, Form, FormGroup, FormControl, ControlLabel, Button, ButtonGroup} from 'react-bootstrap';
 import './css/App.css';
 import 'whatwg-fetch';
 
@@ -114,9 +114,24 @@ class Register extends Component {
 
         console.log(this.state.registration);
 
+        fetch('http://bibleconferences.org:8080/api/registration', {
+            method: 'POST',
+            body: JSON.stringify(this.state.registration)
+        })
+            .then((r) => r.json())
+            .then(json => {
+                console.log(json);
+                this.props.thankYou();
+            })
+            .catch(error => this.setState({error: error}));
     };
 
+    closeError = () => this.setState({error: ''});
+
     render() {
+
+        const {error} = this.state;
+
         return (
             <Grid>
                 <Form horizontal onSubmit={this.submitRegistration}>
@@ -125,6 +140,14 @@ class Register extends Component {
                         <h1 style={{textAlign: 'center'}}>Registration</h1>
                     </Row>
                     <hr />
+
+                    {error ? <Alert bsStyle="danger" onDismiss={this.closeError}>
+                        <h4>An error occurred!</h4>
+                        <p>
+                            {error}
+                        </p>
+                        <p>Please contact <a href="mailto:info@bibleconferences.org">our staff</a> for support</p>
+                    </Alert> : null}
 
 
                     <FormGroup>
