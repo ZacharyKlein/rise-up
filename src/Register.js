@@ -224,7 +224,7 @@ class Register extends Component {
                                 {this.state.registration.attendees.length}
                             </Col>
 
-                            <Col md={1}>
+                            <Col md={2}>
                                 <ControlLabel>
                                     Total Price:
                                 </ControlLabel>
@@ -233,13 +233,13 @@ class Register extends Component {
                                 $300.00
                             </Col>
 
-                            <Col md={5} className="pull-right">
+                            <Col md={4} className="pull-right">
                                 <ButtonGroup>
                                     <Button onClick={this.addAttendee} bsStyle="info">
                                         Add Attendee
                                     </Button>
                                     <Button bsStyle="success" type="submit">
-                                        Save Registration
+                                        Finish
                                     </Button>
                                 </ButtonGroup>
 
