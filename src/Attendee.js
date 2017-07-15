@@ -5,13 +5,13 @@ import './css/App.css';
 class Attendee extends Component {
 
     render() {
-        // const {attendee} = this.props;
-        const {attendee, updateHandler} = this.props;
+        const {attendee, updateHandler, tickets,
+            seminar1, seminar2, seminar3, seminar4} = this.props;
 
         return <Well>
             <Row>
                 <Col md={2}>
-                    <h4>Attendee {attendee.id}</h4>
+                    <h4>Attendee #{attendee.index}</h4>
                 </Col>
             </Row>
             <hr/>
@@ -74,7 +74,8 @@ class Attendee extends Component {
                 </Col>
                 <Col md={4}>
                     <FormControl componentClass="select" name="ticket" onChange={updateHandler}>
-                        <option value="option">Option</option>
+                        <option>Select a ticket...</option>
+                        {tickets.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                     </FormControl>
                 </Col>
 
@@ -116,7 +117,8 @@ class Attendee extends Component {
                 </Col>
                 <Col md={4}>
                     <FormControl componentClass="select" name="seminar1" onChange={updateHandler}>
-                        <option value="option">Option</option>
+                        <option>Select a seminar...</option>
+                        {seminar1.map(s => <option key={s.id} value={s.id}>{s.title} - {s.speaker}</option>)}
                     </FormControl>
                 </Col>
 
@@ -125,7 +127,8 @@ class Attendee extends Component {
                 </Col>
                 <Col md={4}>
                     <FormControl componentClass="select" name="seminar2" onChange={updateHandler}>
-                        <option value="option">Option</option>
+                        <option>Select a seminar...</option>
+                        {seminar2.map(s => <option key={s.id} value={s.id}>{s.title} - {s.speaker}</option>)}
                     </FormControl>
                 </Col>
             </FormGroup>
@@ -136,7 +139,8 @@ class Attendee extends Component {
                 </Col>
                 <Col md={4}>
                     <FormControl componentClass="select" name="seminar3" onChange={updateHandler}>
-                        <option value="option">Option</option>
+                        <option>Select a seminar...</option>
+                        {seminar3.map(s => <option key={s.id} value={s.id}>{s.title} - {s.speaker}</option>)}
                     </FormControl>
                 </Col>
 
@@ -145,7 +149,8 @@ class Attendee extends Component {
                 </Col>
                 <Col md={4}>
                     <FormControl componentClass="select" name="seminar4" onChange={updateHandler}>>
-                        <option value="option">Option</option>
+                        <option>Select a seminar...</option>
+                        {seminar4.map(s => <option key={s.id} value={s.id}>{s.title} - {s.speaker}</option>)}
                     </FormControl>
                 </Col>
             </FormGroup>

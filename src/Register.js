@@ -2,44 +2,80 @@ import React, {Component} from 'react';
 import Attendee from './Attendee';
 import {Grid, Row, Well, Col, Form, FormGroup, FormControl, ControlLabel, Button, ButtonGroup} from 'react-bootstrap';
 import './css/App.css';
+import 'whatwg-fetch';
 
 class Register extends Component {
 
     constructor() {
         super();
         this.state = {
-            firstName: '',
-            lastName: '',
-            street: '',
-            street2: '',
-            city: '',
-            state: '',
-            postal: '',
-            phone: '',
-            email: '',
-            attendees: []
+            registration: {
+                firstName: '',
+                lastName: '',
+                street: '',
+                street2: '',
+                city: '',
+                state: '',
+                postal: '',
+                phone: '',
+                email: '',
+                attendees: []
+            },
+            tickets: [],
+            seminar1: [],
+            seminar2: [],
+            seminar3: [],
+            seminar4: []
         }
     }
 
+    componentDidMount() {
+        fetch('http://bibleconferences.org:8080/api/tickets')
+            .then((r) => r.json())
+            .then(json => this.setState({tickets: json}));
+
+        fetch('http://bibleconferences.org:8080/api/seminar1')
+            .then((r) => r.json())
+            .then(json => this.setState({seminar1: json}));
+
+        fetch('http://bibleconferences.org:8080/api/seminar2')
+            .then((r) => r.json())
+            .then(json => this.setState({seminar2: json}));
+
+        fetch('http://bibleconferences.org:8080/api/seminar3')
+            .then((r) => r.json())
+            .then(json => this.setState({seminar3: json}));
+
+        fetch('http://bibleconferences.org:8080/api/seminar4')
+            .then((r) => r.json())
+            .then(json => this.setState({seminar4: json}));
+    }
     renderAttendeeRow = attendee => {
-        return attendee ? <Attendee key={attendee.id} attendee={attendee} updateHandler={(e) => this.handleAttendeeInputChange(e, attendee.id)} remove={() => { this.removeAttendeeRow(attendee.id) }}/> : null;
+        const {tickets, seminar1, seminar2, seminar3, seminar4} = this.state;
+        return attendee ?
+        <Attendee key={attendee.index} attendee={attendee} tickets={tickets}
+            seminar1={seminar1} seminar2={seminar2} seminar3={seminar3} seminar4={seminar4}
+            updateHandler={(e) => this.handleAttendeeInputChange(e, attendee.index)}
+            remove={() => {
+                this.removeAttendeeRow(attendee.index)
+            }}/> : null;
     };
 
-    removeAttendeeRow = id => {
-      console.log(`removeAttendeeRow: ${id}`);
-      let state = this.state;
+    removeAttendeeRow = index => {
+        console.log(`removeAttendeeRow: ${index}`);
+        let state = this.state;
 
-      state.attendees = state.attendees.filter((a) => a.id !== id);
+        state.registration.attendees = state.attendees.filter((a) => a.index !== index);
 
-      this.setState(state);
+        this.setState(state);
     };
 
     addAttendee = () => {
-        let state = this.state;
-        const id = state.attendees.length + 1;
-        state.attendees.push({id});
+        let registration = this.state.registration;
+        const index = registration.attendees.length + 1;
+        registration.attendees.push({index});
 
-        this.setState(state);
+        this.setState({registration});
     };
 
     back = () => {
@@ -50,48 +86,62 @@ class Register extends Component {
         const target = event.target;
 
         this.setState(state => {
-            const registration = state;
+            const registration = state.registration;
             registration[target.name] = target.type === 'checkbox' ? target.checked : target.value;
-            return registration;
+            return {registration};
         });
     };
 
-    handleAttendeeInputChange = (event, id)  => {
-        console.log(`handleAttendeeInputChange: ${id}`);
+    handleAttendeeInputChange = (event, index) => {
+        console.log(`handleAttendeeInputChange: ${index}`);
         const target = event.target;
 
-        let attendees = this.state.attendees.map(a => {
-            if(a && a.id === id) {
+        let {registration} = this.state;
+        registration.attendees = registration.attendees.map(a => {
+            if (a && a.index === index) {
                 a[target.name] = target.type === 'checkbox' ? target.checked : target.value;
             }
 
             return a;
         });
-        this.setState({attendees})
+
+
+        this.setState({registration})
+    };
+
+    submitRegistration = (e) => {
+        e.preventDefault();
+
+        console.log(this.state.registration);
+
     };
 
     render() {
         return (
             <Grid>
-                <Row>
-                    <Button onClick={this.back}>Back</Button>
-                    <h1 style={{textAlign: 'center'}}>Registration</h1>
-                </Row>
-                <hr />
-                <Form horizontal>
+                <Form horizontal onSubmit={this.submitRegistration}>
+                    <Row>
+                        <Button onClick={this.back}>Back</Button>
+                        <h1 style={{textAlign: 'center'}}>Registration</h1>
+                    </Row>
+                    <hr />
+
 
                     <FormGroup>
                         <Col md={2}>
                             <ControlLabel>First Name</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl name="firstName" type='text' placeholder="First Name" value={this.state.firstName} onChange={this.handleInputChange}/>
+                            <FormControl name="firstName" type='text' placeholder="First Name"
+                                         value={this.state.registration.firstName} onChange={this.handleInputChange}/>
                         </Col>
                         <Col md={2}>
                             <ControlLabel>Last Name</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl name="lastName" type='text' placeholder="Last Name" value={this.state.lastName} onChange={this.handleInputChange}/>
+                            <FormControl name="lastName" type='text' placeholder="Last Name"
+                                         value={this.state.registration.lastName}
+                                         onChange={this.handleInputChange}/>
                         </Col>
 
                     </FormGroup>
@@ -102,9 +152,13 @@ class Register extends Component {
                             </ControlLabel>
                         </Col>
                         <Col md={10}>
-                            <FormControl name="street" type='text' placeholder="Street" value={this.state.street} onChange={this.handleInputChange}/>
+                            <FormControl name="street" type='text' placeholder="Street"
+                                         value={this.state.registration.street}
+                                         onChange={this.handleInputChange}/>
                             <br/>
-                            <FormControl name="street2" type='text' placeholder="Street 2" value={this.state.street2} onChange={this.handleInputChange}/>
+                            <FormControl name="street2" type='text' placeholder="Street 2"
+                                         value={this.state.registration.street2}
+                                         onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
                     <FormGroup>
@@ -112,20 +166,25 @@ class Register extends Component {
                             <ControlLabel>City</ControlLabel>
                         </Col>
                         <Col md={3}>
-                            <FormControl name="city" type='text' placeholder="City" value={this.state.city} onChange={this.handleInputChange}/>
+                            <FormControl name="city" type='text' placeholder="City" value={this.state.registration.city}
+                                         onChange={this.handleInputChange}/>
                         </Col>
 
                         <Col md={1}>
                             <ControlLabel>State</ControlLabel>
                         </Col>
                         <Col md={2}>
-                            <FormControl name="state" type='text' placeholder="State" value={this.state.state} onChange={this.handleInputChange}/>
+                            <FormControl name="state" type='text' placeholder="State"
+                                         value={this.state.registration.state}
+                                         onChange={this.handleInputChange}/>
                         </Col>
                         <Col md={1}>
                             <ControlLabel>Postal</ControlLabel>
                         </Col>
                         <Col md={2}>
-                            <FormControl name="postal" type='text' placeholder="Zip code" value={this.state.postal} onChange={this.handleInputChange}/>
+                            <FormControl name="postal" type='text' placeholder="Zip code"
+                                         value={this.state.registration.postal}
+                                         onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
 
@@ -134,57 +193,60 @@ class Register extends Component {
                             <ControlLabel>Phone</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl name="phone" type='text' placeholder="Phone" value={this.state.phone} onChange={this.handleInputChange}/>
+                            <FormControl name="phone" type='text' placeholder="Phone"
+                                         value={this.state.registration.phone}
+                                         onChange={this.handleInputChange}/>
                         </Col>
 
                         <Col md={2}>
                             <ControlLabel>Email</ControlLabel>
                         </Col>
                         <Col md={4}>
-                            <FormControl name="email" type='text' placeholder="Email address" value={this.state.email} onChange={this.handleInputChange}/>
+                            <FormControl name="email" type='text' placeholder="Email address"
+                                         value={this.state.registration.email}
+                                         onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
                     <hr />
 
-                    {this.state.attendees.map(this.renderAttendeeRow)}
+                    {this.state.registration.attendees.map(this.renderAttendeeRow)}
 
+
+                    <Well>
+                        <Row>
+
+                            <Col md={2}>
+                                <ControlLabel>
+                                    Total Attendees:
+                                </ControlLabel>
+                            </Col>
+                            <Col md={1}>
+                                {this.state.registration.attendees.length}
+                            </Col>
+
+                            <Col md={1}>
+                                <ControlLabel>
+                                    Total Price:
+                                </ControlLabel>
+                            </Col>
+                            <Col md={1}>
+                                $300.00
+                            </Col>
+
+                            <Col md={5} className="pull-right">
+                                <ButtonGroup>
+                                    <Button onClick={this.addAttendee} bsStyle="info">
+                                        Add Attendee
+                                    </Button>
+                                    <Button bsStyle="success" type="submit">
+                                        Save Registration
+                                    </Button>
+                                </ButtonGroup>
+
+                            </Col>
+                        </Row>
+                    </Well>
                 </Form>
-
-                <Well>
-                    <Row>
-
-                        <Col md={2}>
-                            <ControlLabel>
-                                Total Attendees:
-                            </ControlLabel>
-                        </Col>
-                        <Col md={1}>
-                            {this.state.attendees.length}
-                        </Col>
-
-                        <Col md={2}>
-                            <ControlLabel>
-                                Total Price:
-                            </ControlLabel>
-                        </Col>
-                        <Col md={1}>
-                            $300.00
-                        </Col>
-
-                        <Col md={4} className="pull-right">
-                            <ButtonGroup>
-                                <Button onClick={this.addAttendee} bsStyle="info">
-                                    Add Attendee
-                                </Button>
-                                <Button bsStyle="success">
-                                    Checkout
-                                </Button>
-                            </ButtonGroup>
-
-                        </Col>
-                    </Row>
-                </Well>
-
             </Grid>
         );
     }
