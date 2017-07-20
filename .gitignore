@@ -8,6 +8,9 @@
 
 # production
 /build
+/.gradle
+/.idea
+/.idea/workspace.xml
 
 # misc
 .DS_Store
