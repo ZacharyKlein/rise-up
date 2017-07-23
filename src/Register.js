@@ -114,7 +114,7 @@ class Register extends Component {
 
         console.log(this.state.registration);
 
-        fetch('http://bibleconferences.org:8080/api/registration', {
+        fetch('http://bibleconferences.org:8080/registration', {
             method: 'POST',
             body: JSON.stringify(this.state.registration)
         })
@@ -253,7 +253,7 @@ class Register extends Component {
                                 </ControlLabel>
                             </Col>
                             <Col md={1}>
-                                $300.00
+                                $0.00
                             </Col>
 
                             <Col md={4} className="pull-right">

@@ -11,6 +11,8 @@
 /.gradle
 /.idea
 /.idea/workspace.xml
+.gradle/3.4.1/taskHistory/file*
+.gradle/3.4.1/taskHistory/task*
 
 # misc
 .DS_Store
