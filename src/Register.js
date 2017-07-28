@@ -30,23 +30,23 @@ class Register extends Component {
     }
 
     componentDidMount() {
-        fetch('http://bibleconferences.org:8080/api/tickets')
+        fetch('http://localhost:8080/api/tickets')
             .then((r) => r.json())
             .then(json => this.setState({tickets: json}));
 
-        fetch('http://bibleconferences.org:8080/api/seminar1')
+        fetch('http://localhost:8080/api/seminar1')
             .then((r) => r.json())
             .then(json => this.setState({seminar1: json}));
 
-        fetch('http://bibleconferences.org:8080/api/seminar2')
+        fetch('http://localhost:8080/api/seminar2')
             .then((r) => r.json())
             .then(json => this.setState({seminar2: json}));
 
-        fetch('http://bibleconferences.org:8080/api/seminar3')
+        fetch('http://localhost:8080/api/seminar3')
             .then((r) => r.json())
             .then(json => this.setState({seminar3: json}));
 
-        fetch('http://bibleconferences.org:8080/api/seminar4')
+        fetch('http://localhost:8080/api/seminar4')
             .then((r) => r.json())
             .then(json => this.setState({seminar4: json}));
     }
@@ -62,17 +62,16 @@ class Register extends Component {
     };
 
     removeAttendeeRow = index => {
-        console.log(`removeAttendeeRow: ${index}`);
-        let state = this.state;
+        let {registration} = this.state;
 
-        state.registration.attendees = state.attendees.filter((a) => a.index !== index);
+        registration.attendees = this.state.registration.attendees.filter((a) => a.index !== index);
 
-        this.setState(state);
+        this.setState({registration});
     };
 
     addAttendee = () => {
-        let registration = this.state.registration;
-        const index = registration.attendees.length + 1;
+        let {registration} = this.state;
+        const index = registration.attendees ? registration.attendees.length + 1 : 0;
         registration.attendees.push({index});
 
         this.setState({registration});
@@ -114,14 +113,15 @@ class Register extends Component {
 
         console.log(this.state.registration);
 
-        fetch('http://bibleconferences.org:8080/registration', {
+        fetch('http://localhost:8080/registration', {
             method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify(this.state.registration)
         })
             .then((r) => r.json())
             .then(json => {
                 console.log(json);
-                this.props.thankYou();
+                this.props.finish();
             })
             .catch(error => this.setState({error: error}));
     };
@@ -130,7 +130,13 @@ class Register extends Component {
 
     render() {
 
-        const {error} = this.state;
+        const {error, registration, tickets} = this.state;
+        const {attendees} = registration;
+
+        const totalPrice = attendees.map(a => {
+                const ticket = a.ticket ? tickets.filter(t => Number(a.ticket) === Number(t.id))[0] : null;
+                return ticket ? ticket.price : 0
+        }).reduce((a, b) => a + b, 0);
 
         return (
             <Grid>
@@ -146,7 +152,7 @@ class Register extends Component {
                         <p>
                             {error}
                         </p>
-                        <p>Please contact <a href="mailto:info@bibleconferences.org">our staff</a> for support</p>
+                        <p>Please contact <a href="mailto:info@localhost">our staff</a> for support</p>
                     </Alert> : null}
 
 
@@ -175,12 +181,12 @@ class Register extends Component {
                             </ControlLabel>
                         </Col>
                         <Col md={10}>
-                            <FormControl name="street" type='text' placeholder="Street"
-                                         value={this.state.registration.street}
+                            <FormControl name="address1" type='text' placeholder="Street"
+                                         value={this.state.registration.address1}
                                          onChange={this.handleInputChange}/>
                             <br/>
-                            <FormControl name="street2" type='text' placeholder="Street 2"
-                                         value={this.state.registration.street2}
+                            <FormControl name="address2" type='text' placeholder="Street 2"
+                                         value={this.state.registration.address2}
                                          onChange={this.handleInputChange}/>
                         </Col>
                     </FormGroup>
@@ -253,7 +259,7 @@ class Register extends Component {
                                 </ControlLabel>
                             </Col>
                             <Col md={1}>
-                                $0.00
+                                ${totalPrice}
                             </Col>
 
                             <Col md={4} className="pull-right">
@@ -262,7 +268,7 @@ class Register extends Component {
                                         Add Attendee
                                     </Button>
                                     <Button bsStyle="success" type="submit">
-                                        Finish
+                                        Submit Registration
                                     </Button>
                                 </ButtonGroup>
 

@@ -5,7 +5,7 @@ const ThankYou = ({back}) => {
     return <Grid>
         <Row>
             <Button onClick={back}>Back</Button>
-            <h1 style={{textAlign: 'center'}}>Registration</h1>
+            <h1 style={{textAlign: 'center'}}>Thank You!</h1>
         </Row>
         <hr />
     </Grid>;
