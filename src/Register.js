@@ -267,11 +267,23 @@ class Register extends Component {
                                     <Button onClick={this.addAttendee} bsStyle="info">
                                         Add Attendee
                                     </Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={2}>
+                                <ControlLabel>Payment Method</ControlLabel>
+                            </Col>
+                            <Col md={4}>
+                                Check <input type="radio" name="paymentMethod" value="Check" onChange={this.handleInputChange} />&nbsp;&nbsp;
+                                Credit Card <input type="radio" name="paymentMethod" value="Credit" onChange={this.handleInputChange} />
+                            </Col>
+                            <Col md={4} className="pull-right">
+                                <ButtonGroup>
                                     <Button bsStyle="success" type="submit">
                                         Submit Registration
                                     </Button>
                                 </ButtonGroup>
-
                             </Col>
                         </Row>
                     </Well>
