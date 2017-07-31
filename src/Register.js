@@ -1,6 +1,19 @@
 import React, {Component} from 'react';
 import Attendee from './Attendee';
-import {Alert, Grid, Row, Well, Col, Form, FormGroup, FormControl, ControlLabel, Button, ButtonGroup} from 'react-bootstrap';
+import {
+    Alert,
+    Radio,
+    Grid,
+    Row,
+    Well,
+    Col,
+    Form,
+    FormGroup,
+    FormControl,
+    ControlLabel,
+    Button,
+    ButtonGroup
+} from 'react-bootstrap';
 import './css/App.css';
 import 'whatwg-fetch';
 
@@ -50,15 +63,16 @@ class Register extends Component {
             .then((r) => r.json())
             .then(json => this.setState({seminar4: json}));
     }
+
     renderAttendeeRow = attendee => {
         const {tickets, seminar1, seminar2, seminar3, seminar4} = this.state;
         return attendee ?
-        <Attendee key={attendee.index} attendee={attendee} tickets={tickets}
-            seminar1={seminar1} seminar2={seminar2} seminar3={seminar3} seminar4={seminar4}
-            updateHandler={(e) => this.handleAttendeeInputChange(e, attendee.index)}
-            remove={() => {
-                this.removeAttendeeRow(attendee.index)
-            }}/> : null;
+            <Attendee key={attendee.index} attendee={attendee} tickets={tickets}
+                      seminar1={seminar1} seminar2={seminar2} seminar3={seminar3} seminar4={seminar4}
+                      updateHandler={(e) => this.handleAttendeeInputChange(e, attendee.index)}
+                      remove={() => {
+                          this.removeAttendeeRow(attendee.index)
+                      }}/> : null;
     };
 
     removeAttendeeRow = index => {
@@ -134,8 +148,8 @@ class Register extends Component {
         const {attendees} = registration;
 
         const totalPrice = attendees.map(a => {
-                const ticket = a.ticket ? tickets.filter(t => Number(a.ticket) === Number(t.id))[0] : null;
-                return ticket ? ticket.price : 0
+            const ticket = a.ticket ? tickets.filter(t => Number(a.ticket) === Number(t.id))[0] : null;
+            return ticket ? ticket.price : 0
         }).reduce((a, b) => a + b, 0);
 
         return (
@@ -250,7 +264,9 @@ class Register extends Component {
                                 </ControlLabel>
                             </Col>
                             <Col md={1}>
-                                {this.state.registration.attendees.length}
+                                <ControlLabel>
+                                    {this.state.registration.attendees.length}
+                                </ControlLabel>
                             </Col>
 
                             <Col md={2}>
@@ -259,7 +275,9 @@ class Register extends Component {
                                 </ControlLabel>
                             </Col>
                             <Col md={1}>
-                                ${totalPrice}
+                                <ControlLabel>
+                                    ${totalPrice}
+                                </ControlLabel>
                             </Col>
 
                             <Col md={4} className="pull-right">
@@ -275,8 +293,14 @@ class Register extends Component {
                                 <ControlLabel>Payment Method</ControlLabel>
                             </Col>
                             <Col md={4}>
-                                Check <input type="radio" name="paymentMethod" value="Check" onChange={this.handleInputChange} />&nbsp;&nbsp;
-                                Credit Card <input type="radio" name="paymentMethod" value="Credit" onChange={this.handleInputChange} />
+
+                                <Radio name="paymentMethod" value="check" onChange={this.handleInputChange}>
+                                    Check
+                                </Radio>
+
+                                <Radio name="paymentMethod" value="credit" onChange={this.handleInputChange}>
+                                    Credit Card
+                                </Radio>
                             </Col>
                             <Col md={4} className="pull-right">
                                 <ButtonGroup>
